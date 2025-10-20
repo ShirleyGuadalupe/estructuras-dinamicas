@@ -12,14 +12,33 @@ Nota:
 
 class DoubleNode:
     # TODO: implementar nodo doble para tareas
-    pass
+    def __init__ (self, id: int, descripcion: str, prioridad: int, prev: DoubleNode, next: DoubleNode) :
+        self.id = id
+        self.descripcion = descripcion
+        self.prioridad = prioridad
+        self.prev = prev
+        self.next = next
 
 class DoublyLinkedList:
     # TODO: implementar DLL
+    def __init__ (self) :
+        self.head = DoubleNode(None, None, None, None, None, None)
+        self.tail = DoubleNode(None, None, None, None, None, None)
+        self.size = 0
+        
     def append(self, task):
         """Inserta al final. O(1)"""
-        raise NotImplementedError
-
+        if (self.size == 0) :
+            tarea = DoubleNode(task.id, task.descripcion, task.prioridad, None, task)
+            self.head = tarea
+            self.tail = tarea
+            self.size += 1
+        else :
+            tarea = DoubleNode(task.id, task.descripcion, task.prioridad, self.tail, None)
+            self.tail.next = task
+            self.tail = tarea
+            self.size += 1
+      
     def prepend(self, task):
         """Inserta al inicio. O(1)"""
         raise NotImplementedError
@@ -30,7 +49,13 @@ class DoublyLinkedList:
 
     def find_by_id(self, task_id):
         """Retorna la tarea o None. O(n)"""
-        raise NotImplementedError
+        nodo_base = self.head
+        while nodo_base is not None:
+            if nodo_base.id == task_id:
+                return nodo_base
+            else :
+                nodo_base = nodo_base.next
+        return None
 
     def find_by_prioridad(self, prioridad):
         """Retorna lista de tareas con esa prioridad. O(n)"""
@@ -45,5 +70,4 @@ class DoublyLinkedList:
         raise NotImplementedError
 
     def size(self):
-        """Cantidad de nodos. O(1)"""
-        raise NotImplementedError
+        return self.size

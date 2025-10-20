@@ -13,7 +13,15 @@ class TestChallenge3LinkedList(unittest.TestCase):
     # TODO: agrega más casos:
     # - eliminar por id (cuando implementes remove)
     # - find_by_priority devuelve múltiples tareas
+    def test_find_by_priority(self):
+        tarea = find_by_proprity(2)
+        self.assertIsNotNone(tarea)
+        self.assertEqual(tarea["prioridad"], 2)
+        
     # - find_by_id inexistente -> None
+    def test_find_by_id_inexistente(self):
+        tarea = find_by_is(1)
+        self.assertIsNone(tarea)
 
 if __name__ == "__main__":
     unittest.main()
