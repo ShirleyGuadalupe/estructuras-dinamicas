@@ -17,9 +17,9 @@ _lista_tareas = DoublyLinkedList()
 def add_task(task_id: int, descripcion: str, prioridad: int) -> None:
     # TODO: crear dict y agregar al final (append) en O(1)
     tarea = {
-        id = task_id
-        descripcion = descripcion
-        prioridad = prioridad
+        "id" : task_id,
+        "descripcion" : descripcion,
+        "prioridad" : prioridad
     }
     return _lista_tareas.append(tarea)
 
@@ -29,4 +29,4 @@ def find_by_id(task_id: int):
 
 def find_by_priority(prioridad: int):
     # TODO: delegar en DLL.find_by_prioridad (O(n))
-    raise NotImplementedError
+    return _lista_tareas.find_by_prioridad(prioridad)

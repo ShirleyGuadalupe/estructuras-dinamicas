@@ -12,7 +12,7 @@ Nota:
 
 class DoubleNode:
     # TODO: implementar nodo doble para tareas
-    def __init__ (self, id: int, descripcion: str, prioridad: int, prev: DoubleNode, next: DoubleNode) :
+    def __init__ (self, id: int, descripcion: str, prioridad: int, prev: None, next: None) :
         self.id = id
         self.descripcion = descripcion
         self.prioridad = prioridad
@@ -22,30 +22,30 @@ class DoubleNode:
 class DoublyLinkedList:
     # TODO: implementar DLL
     def __init__ (self) :
-        self.head = DoubleNode(None, None, None, None, None, None)
-        self.tail = DoubleNode(None, None, None, None, None, None)
+        self.head = None
+        self.tail = None
         self.size = 0
         
     def append(self, task):
         """Inserta al final. O(1)"""
+        tarea = DoubleNode(task["id"], task["descripcion"], task["prioridad"], None, None)
+        
         if (self.size == 0) :
-            tarea = DoubleNode(task.id, task.descripcion, task.prioridad, None, task)
+            tarea.next = None
             self.head = tarea
             self.tail = tarea
             self.size += 1
         else :
-            tarea = DoubleNode(task.id, task.descripcion, task.prioridad, self.tail, None)
-            self.tail.next = task
+            tarea.prev = self.tail
+            self.tail.next = tarea
             self.tail = tarea
             self.size += 1
       
     def prepend(self, task):
         """Inserta al inicio. O(1)"""
-        raise NotImplementedError
 
     def remove_by_id(self, task_id):
         """Elimina por id. O(n). Retorna True si elimina, False si no."""
-        raise NotImplementedError
 
     def find_by_id(self, task_id):
         """Retorna la tarea o None. O(n)"""
@@ -59,15 +59,20 @@ class DoublyLinkedList:
 
     def find_by_prioridad(self, prioridad):
         """Retorna lista de tareas con esa prioridad. O(n)"""
-        raise NotImplementedError
-
+        nodo_base = self.head
+        lista_tareas = []
+        while nodo_base is not None:
+            if nodo_base.prioridad == prioridad:
+                lista_tareas.append(nodo_base)
+            nodo_base = nodo_base.next
+        return lista_tareas
+    
     def iter_forward(self):
         """Generador hacia adelante."""
-        raise NotImplementedError
+
 
     def iter_backward(self):
         """Generador hacia atrás."""
-        raise NotImplementedError
 
     def size(self):
         return self.size
