@@ -30,3 +30,24 @@ def find_by_id(task_id: int):
 def find_by_priority(prioridad: int):
     # TODO: delegar en DLL.find_by_prioridad (O(n))
     return _lista_tareas.find_by_prioridad(prioridad)
+
+def add_task_prepend(task_id: int, descripcion: str, prioridad: int) -> None:
+    # TODO: crear dict y agregar al final (append) en O(1)
+    tarea = {
+        "id" : task_id,
+        "descripcion" : descripcion,
+        "prioridad" : prioridad
+    }
+    return _lista_tareas.prepend(tarea)
+
+def remove(task_id):
+    return _lista_tareas.remove_by_id(task_id)
+
+def print_forward():
+    return _lista_tareas.iter_forward()
+
+def print_backward():
+    return _lista_tareas.iter_backward()
+
+def get_size():
+    return _lista_tareas.size

@@ -31,21 +31,44 @@ class DoublyLinkedList:
         tarea = DoubleNode(task["id"], task["descripcion"], task["prioridad"], None, None)
         
         if (self.size == 0) :
-            tarea.next = None
             self.head = tarea
             self.tail = tarea
-            self.size += 1
         else :
             tarea.prev = self.tail
             self.tail.next = tarea
             self.tail = tarea
-            self.size += 1
+        
+        self.size += 1
       
     def prepend(self, task):
         """Inserta al inicio. O(1)"""
+        tarea = DoubleNode(task["id"], task["descripcion"], task["prioridad"], None, None)
+
+        if (self.size == 0) : 
+            self.head = tarea
+            self.tail = tarea
+        else :
+            tarea.next = self.head
+            self.head.prev = tarea
+            self.head = tarea
+
+        self.size += 1
 
     def remove_by_id(self, task_id):
         """Elimina por id. O(n). Retorna True si elimina, False si no."""
+        tarea_eliminar = self.find_by_id(task_id)
+
+        if tarea_eliminar is not None : 
+            if self.head is not None and self.head.id == tarea_eliminar.id :
+                cabeza = self.head.next 
+                self.head = cabeza
+            else :
+                tarea_eliminar.prev.next = tarea_eliminar.next
+                tarea_eliminar.next.prev = tarea_eliminar.prev
+            self.size -= 1
+            return True
+        else :
+            return False
 
     def find_by_id(self, task_id):
         """Retorna la tarea o None. O(n)"""
@@ -69,10 +92,21 @@ class DoublyLinkedList:
     
     def iter_forward(self):
         """Generador hacia adelante."""
-
+        nodo_base = self.head
+        list = []
+        while nodo_base is not None :
+            list.append(nodo_base.id)
+            nodo_base = nodo_base.next
+        return list
 
     def iter_backward(self):
         """Generador hacia atrás."""
+        nodo_base = self.tail
+        list = []
+        while nodo_base is not None :
+            list.append(nodo_base.id)
+            nodo_base = nodo_base.prev
+        return list
 
     def size(self):
         return self.size
