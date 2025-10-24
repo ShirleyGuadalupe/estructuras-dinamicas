@@ -20,4 +20,11 @@ PARES = {')': '(', '}': '{', ']': '['}
 def validate_expression(expression: str) -> bool:
     # TODO: Implementar con Stack siguiendo las reglas de arriba.
     # Debe ser O(n) en tiempo; O(n) espacio peor caso.
-    raise NotImplementedError
+    pila = Stack()
+    for elemento in expression :
+        if elemento in PARES.values() :
+            pila.push(elemento)
+        elif elemento in PARES.keys() :
+            if pila.is_empty() or pila.pop() != PARES[elemento] :
+                return False
+    return pila.is_empty()
