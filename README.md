@@ -23,7 +23,7 @@ python -m unittest -v
 * Agrega más casos (bordes, errores esperados).
 * Documenta complejidades Big-O en los READMEs de cada carpeta.
 
-## Documentación Complejidad Bog O de cada operación por cada estructura dinámica:
+## Documentación Complejidad Big O de cada operación por cada estructura dinámica:
 
 - `Stack:` 
 
